@@ -1,0 +1,75 @@
+﻿<Window x:Class="BusParkManagementSystem.Views.Dialogs.PositionEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:BusParkManagementSystem.Converters"
+        mc:Ignorable="d"
+        Title="Редактирование должности" 
+        Height="337" Width="400"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <converters:DecimalConverter x:Key="DecimalConverter"/>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,8,0,4"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Padding" Value="8"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Название должности -->
+        <TextBlock Grid.Row="0" Text="Название должности:"/>
+        <TextBox Grid.Row="1" 
+                 Text="{Binding PositionName, UpdateSourceTrigger=PropertyChanged}"
+                 x:Name="PositionNameTextBox"/>
+
+        <!-- Базовый оклад -->
+        <TextBlock Grid.Row="2" Text="Базовый оклад:"/>
+        <TextBox Grid.Row="3" 
+                 Text="{Binding BaseSalary, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConverter}}"
+                 x:Name="BaseSalaryTextBox"/>
+
+        <!-- Процент премии -->
+        <TextBlock Grid.Row="4" Text="Процент премии (%):"/>
+        <TextBox Grid.Row="5" 
+                 Text="{Binding BonusPercent, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConverter}}"
+                 x:Name="BonusPercentTextBox"
+                 Margin="0,0,0,16"/>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="6" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Content="Сохранить" 
+                    Style="{StaticResource SuccessButton}"
+                    Click="SaveButton_Click"
+                    IsDefault="True"/>
+            <Button Content="Отмена" 
+                    Style="{StaticResource PrimaryButton}"
+                    Click="CancelButton_Click"
+                    IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

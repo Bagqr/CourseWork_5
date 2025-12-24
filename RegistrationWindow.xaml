@@ -1,0 +1,104 @@
+﻿<Window x:Class="BusParkManagementSystem.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Регистрация нового пользователя" 
+        Height="628" 
+        Width="450"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#ECF0F1">
+
+    <Grid Margin="0,0,0,22">
+        <Border Style="{StaticResource CardStyle}" 
+                Width="380"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <StackPanel Margin="20">
+                <!-- Заголовок -->
+                <StackPanel Margin="0,0,0,20" 
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="📝" 
+                               FontSize="40" 
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,10"/>
+                    <TextBlock Text="Регистрация" 
+                               FontSize="18" 
+                               FontWeight="Bold" 
+                               Foreground="#2C3E50"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Форма регистрации -->
+                <StackPanel>
+                    <!-- Логин -->
+                    <TextBlock Text="Логин:" 
+                               FontWeight="SemiBold" 
+                               Margin="0,0,0,4"/>
+                    <TextBox x:Name="UsernameTextBox" 
+                             Height="36"
+                             FontSize="14"
+                             Padding="8"
+                             TabIndex="1"/>
+
+                    <!-- Пароль -->
+                    <TextBlock Text="Пароль:" 
+                               FontWeight="SemiBold" 
+                               Margin="0,12,0,4"/>
+                    <PasswordBox x:Name="PasswordBox" 
+                                 Height="36"
+                                 FontSize="14"
+                                 Padding="8"
+                                 TabIndex="2"/>
+
+                    <!-- Подтверждение пароля -->
+                    <TextBlock Text="Подтверждение пароля:" 
+                               FontWeight="SemiBold" 
+                               Margin="0,12,0,4"/>
+                    <PasswordBox x:Name="ConfirmPasswordBox" 
+                                 Height="36"
+                                 FontSize="14"
+                                 Padding="8"
+                                 TabIndex="3"/>
+
+                    <!-- Выбор роли -->
+                    <TextBlock Text="Роль:" 
+                               FontWeight="SemiBold" 
+                               Margin="0,12,0,4"/>
+                    <ComboBox x:Name="RoleComboBox" 
+                              Height="36"
+                              FontSize="14"
+                              Padding="8"
+                              SelectedIndex="0"
+                              TabIndex="4">
+                    </ComboBox>
+
+                    <!-- Флаг "Сменить пароль при первом входе" -->
+					<CheckBox x:Name="MustChangePasswordCheckBox"
+		                       Content="Требовать смену пароля при первом входе"
+		                       IsChecked="True"
+		                       Margin="10"/>
+
+                    <!-- Кнопки -->
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center"
+                                Margin="0,24,0,0">
+                                            <Button x:Name="RegisterButton"
+                                Content="Зарегистрировать"
+                                Style="{StaticResource SuccessButton}"
+                                Width="140"
+                                Height="36"
+                                TabIndex="6"
+                                Click="RegisterButton_Click"/>
+                                            <Button x:Name="CancelButton"
+                                Content="Отмена"
+                                Style="{StaticResource SecondaryButton}"
+                                Width="100"
+                                Height="36"
+                                TabIndex="7"
+                                Click="CancelButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

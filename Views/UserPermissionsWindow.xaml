@@ -1,0 +1,66 @@
+﻿<Window x:Class="BusParkManagementSystem.UserPermissionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Управление правами пользователя" 
+        Height="600" Width="800"
+        WindowStartupLocation="CenterOwner"
+        Background="#ECF0F1">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Информация о пользователе -->
+        <GroupBox Header="Пользователь" Grid.Row="0" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Логин:" FontWeight="Bold" Margin="5"/>
+                <TextBlock x:Name="UsernameText" Margin="5"/>
+                <TextBlock Text="Роль:" FontWeight="Bold" Margin="20,5,5,5"/>
+                <TextBlock x:Name="RoleText" Margin="5"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Пояснения по правам -->
+        <GroupBox Header="Пояснения по правам" Grid.Row="1" Margin="0,0,0,10">
+            <WrapPanel>
+                <TextBlock Text="R - Чтение (просмотр данных)" Margin="5"/>
+                <TextBlock Text="W - Запись (добавление новых записей)" Margin="5"/>
+                <TextBlock Text="E - Редактирование (изменение существующих записей)" Margin="5"/>
+                <TextBlock Text="D - Удаление (удаление записей)" Margin="5"/>
+            </WrapPanel>
+        </GroupBox>
+
+        <!-- Таблица прав -->
+        <DataGrid x:Name="PermissionsGrid" Grid.Row="2" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False"
+                  IsReadOnly="False" 
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Модуль" 
+                                    Binding="{Binding MenuItemName}" 
+                                    Width="200" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Чтение (R)" 
+                                        Binding="{Binding CanRead}"/>
+                <DataGridCheckBoxColumn Header="Запись (W)" 
+                                        Binding="{Binding CanWrite}"/>
+                <DataGridCheckBoxColumn Header="Редактирование (E)" 
+                                        Binding="{Binding CanEdit}"/>
+                <DataGridCheckBoxColumn Header="Удаление (D)" 
+                                        Binding="{Binding CanDelete}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Сохранить" Width="100" Height="30"
+                    Margin="0,0,10,0" Click="SaveButton_Click"/>
+            <Button Content="Отмена" Width="100" Height="30"
+                    Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

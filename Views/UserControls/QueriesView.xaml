@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="BusParkManagementSystem.Views.UserControls.QueriesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Индикатор загрузки -->
+        <Border Background="#80000000" 
+                Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}"
+                Panel.ZIndex="100">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" 
+                             Width="200" 
+                             Height="20" 
+                             Margin="0,0,0,10"/>
+                <TextBlock Text="Выполнение запроса..." 
+                           Foreground="White" 
+                           FontSize="16"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="16">
+                <TextBlock Text="12 запросов к системе" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,16"
+                           Foreground="#2C3E50"/>
+
+                <TextBlock Text="Выберите запрос для выполнения:" 
+                           FontSize="16"
+                           Margin="0,0,0,8"/>
+
+                <!-- Кнопки запросов -->
+                <WrapPanel Margin="0,0,0,16">
+                    <Button Content="1. Водители на маршруте" 
+                            Style="{StaticResource PrimaryButton}"
+                            Width="200" 
+                            Height="40"
+                            Margin="0,0,8,8"
+                            CommandParameter="1. Водители на маршруте"
+                            Command="{Binding RefreshCommand}"/>
+
+                    <Button Content="2. Автобусы на маршруте" 
+                            Style="{StaticResource PrimaryButton}"
+                            Width="200" 
+                            Height="40"
+                            Margin="8,0,8,8"
+                            CommandParameter="2. Автобусы на маршруте"
+                            Command="{Binding RefreshCommand}"/>
+
+                    <Button Content="3. Маршруты из пункта" 
+                            Style="{StaticResource PrimaryButton}"
+                            Width="200" 
+                            Height="40"
+                            Margin="8,0,0,8"
+                            CommandParameter="3. Маршруты из пункта"
+                            Command="{Binding RefreshCommand}"/>
+
+                    <Button Content="4. Выручка по маршрутам" 
+                            Style="{StaticResource PrimaryButton}"
+                            Width="200" 
+                            Height="40"
+                            Margin="0,0,8,0"
+                            CommandParameter="4. Выручка по маршрутам"
+                            Command="{Binding RefreshCommand}"/>
+
+                    <Button Content="5. Состояние автобусов" 
+                            Style="{StaticResource PrimaryButton}"
+                            Width="200" 
+                            Height="40"
+                            Margin="8,0,8,0"
+                            CommandParameter="5. Состояние автобусов"
+                            Command="{Binding RefreshCommand}"/>
+
+                    <Button Content="6. Сотрудники по должности" 
+                            Style="{StaticResource PrimaryButton}"
+                            Width="200" 
+                            Height="40"
+                            Margin="8,0,0,0"
+                            CommandParameter="6. Сотрудники по должности"
+                            Command="{Binding RefreshCommand}"/>
+                </WrapPanel>
+
+                <!-- Выбор запроса через ComboBox -->
+                <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Или выберите запрос из списка:" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,8"/>
+
+                        <ComboBox ItemsSource="{Binding AvailableQueries}"
+                                  SelectedItem="{Binding SelectedQuery}"
+                                  Width="300"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Область для результатов -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding QueryTitle}" 
+                                   FontSize="18" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,12"/>
+
+                        <DataGrid ItemsSource="{Binding QueryResults}" 
+                                  Style="{StaticResource DefaultDataGridStyle}"
+                                  Height="300"
+                                  AutoGenerateColumns="True"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"/>
+
+                        <TextBlock Text="{Binding QueryResults.Rows.Count, StringFormat='Найдено записей: {0}'}" 
+                                   FontStyle="Italic"
+                                   Margin="0,8,0,0"
+                                   Foreground="#666666"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

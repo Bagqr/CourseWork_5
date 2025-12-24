@@ -1,0 +1,114 @@
+﻿<Window x:Class="BusParkManagementSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusParkManagementSystem"
+        mc:Ignorable="d"
+        Title="Автобусный парк - Информационная система" 
+        Height="562" Width="1121"
+        WindowStartupLocation="CenterScreen"
+        Background="#ECF0F1"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка приложения -->
+        <Border Grid.Row="0" 
+                Background="#2C3E50"
+                Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Логотип и название -->
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock Text="🚌" 
+                               FontSize="24" 
+                               Foreground="White"
+                               VerticalAlignment="Center" 
+                               Margin="0,0,12,0"/>
+                </StackPanel>
+                <!-- В разметке -->
+                <WrapPanel Grid.Column="1" 
+           HorizontalAlignment="Center"
+           x:Name="NavigationPanel"
+           Margin="0,0,0,8">
+                    <Button x:Name="BtnBuses" Content="Автобусы" Style="{StaticResource NavButton}" Click="BtnBuses_Click"/>
+                    <Button x:Name="BtnRoutes" Content="Маршруты" Style="{StaticResource NavButton}" Click="BtnRoutes_Click"/>
+                    <Button x:Name="BtnEmployees" Content="Сотрудники" Style="{StaticResource NavButton}" Click="BtnEmployees_Click"/>
+                    <Button x:Name="BtnTrips" Content="Рейсы" Style="{StaticResource NavButton}" Click="BtnTrips_Click"/>
+                    <Button x:Name="BtnReports" Content="Отчёты" Style="{StaticResource NavButton}" Click="BtnReports_Click"/>
+                    <Button x:Name="BtnLookups" Content="Справочники" Style="{StaticResource NavButton}" Click="BtnLookups_Click"/>
+                    <Button x:Name="BtnQueries" Content="Запросы" Style="{StaticResource NavButton}" Click="BtnQueries_Click"/>
+                    <Button x:Name="BtnUsers" Content="Пользователи" Style="{StaticResource NavButton}" Click="BtnUsers_Click" Visibility="Collapsed"/>
+                    <Button x:Name="BtnPermissions" Content="Права доступа" Style="{StaticResource NavButton}" Click="BtnPermissions_Click" Visibility="Collapsed"/>
+                </WrapPanel>
+                <!-- Пользователь -->
+                <StackPanel Grid.Column="2" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Right">
+                    <Button Content="Справка" 
+                            Style="{StaticResource PrimaryButton}"
+                            Width="80"
+                            Height="40"
+                            Margin="0,0,5,0"
+                            Click="BtnHelp_Click"/>
+                    <StackPanel Margin="0,0,12,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="RoleIconText" 
+                                       Text="👤" 
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,4,0"/>
+                            <TextBlock x:Name="CurrentUserText" 
+                                       Text="Гость" 
+                                       Foreground="White"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold"/>
+                        </StackPanel>
+                        <TextBlock x:Name="CurrentRoleText" 
+                                   Text="Роль: Не авторизован" 
+                                   Foreground="#BBBBBB"
+                                   FontSize="11"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button Content="Выход" 
+                            Style="{StaticResource DangerButton}"
+                            Width="80"
+                            Height="40"
+                            Click="BtnExit_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Основная область контента -->
+        <ContentControl x:Name="MainContent" 
+                Grid.Row="1" 
+                Margin="16"/>
+
+        <!-- Статус бар -->
+        <StatusBar Grid.Row="2" 
+                   Background="#2C3E50" 
+                   Foreground="White">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="Готово"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Center">
+                <TextBlock x:Name="AccessInfoText" Text=""/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Text="Версия 1.0"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

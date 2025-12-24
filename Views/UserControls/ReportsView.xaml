@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="BusParkManagementSystem.Views.UserControls.ReportsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Отчет по выручке -->
+        <Grid>
+            <!-- Индикатор загрузки -->
+            <Border Background="#80000000" 
+                    Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}"
+                    Panel.ZIndex="100">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressBar IsIndeterminate="True" 
+                                 Width="200" 
+                                 Height="20" 
+                                 Margin="0,0,0,10"/>
+                    <TextBlock Text="Генерация отчета..." 
+                               Foreground="White" 
+                               FontSize="16"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="16">
+                    <TextBlock Text="Отчет по выручке" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,16"/>
+
+                    <!-- Фильтры отчета -->
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Параметры отчета" 
+                                       FontSize="16" 
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,12"/>
+
+                            <WrapPanel>
+                                <StackPanel Margin="0,0,16,0">
+                                    <TextBlock Text="Тип отчета:"/>
+                                    <ComboBox Width="200" 
+                                              ItemsSource="{Binding ReportTypes}"
+                                              SelectedItem="{Binding SelectedReportType}"/>
+                                </StackPanel>
+
+                                <StackPanel Margin="0,0,16,0">
+                                    <TextBlock Text="Период с:"/>
+                                    <DatePicker Width="150" 
+                                                SelectedDate="{Binding StartDate}"/>
+                                </StackPanel>
+
+                                <StackPanel Margin="0,0,16,0">
+                                    <TextBlock Text="по:"/>
+                                    <DatePicker Width="150" 
+                                                SelectedDate="{Binding EndDate}"/>
+                                </StackPanel>
+                            </WrapPanel>
+
+                            <Button Content="Сформировать отчет" 
+                                    Style="{StaticResource SuccessButton}"
+                                    Width="180" 
+                                    Height="40"
+                                    Margin="0,16,0,0"
+                                    Click="GenerateReport_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Результаты отчета -->
+                    <Border Style="{StaticResource CardStyle}" Margin="0,16,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Результаты отчета" 
+                                       FontSize="16" 
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,12"/>
+
+                            <TextBlock Text="{Binding SelectedReportType, StringFormat='Отчет: {0}'}"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,0,8"/>
+
+                            <DataGrid x:Name="ReportDataGrid"
+                                      ItemsSource="{Binding ReportData}" 
+                                      Style="{StaticResource DefaultDataGridStyle}"
+                                      Height="300"
+                                      AutoGenerateColumns="True"
+                                      IsReadOnly="True"
+                                      CanUserAddRows="False"
+                                      CanUserDeleteRows="False"
+                                      AutoGeneratingColumn="ReportDataGrid_AutoGeneratingColumn"
+                                      LoadingRow="ReportDataGrid_LoadingRow"/>
+
+                            <TextBlock Text="{Binding ReportData.Rows.Count, StringFormat='Найдено записей: {0}'}" 
+                                       FontStyle="Italic"
+                                       Margin="0,8,0,0"
+                                       Foreground="#666666"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

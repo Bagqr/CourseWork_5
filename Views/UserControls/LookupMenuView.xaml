@@ -1,0 +1,242 @@
+﻿<UserControl x:Class="BusParkManagementSystem.Views.UserControls.LookupMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BusParkManagementSystem.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="White">
+
+    <UserControl.Resources>
+        <Style x:Key="LookupCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,16,16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#007bff"/>
+                    <Setter Property="Background" Value="#F8F9FA"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="10" 
+                                              ShadowDepth="2" 
+                                              Color="#999999"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="16">
+            <!-- Заголовок -->
+            <TextBlock Text="📚 Справочники системы" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,20"
+                       Foreground="#2C3E50"/>
+
+            <!-- Описание -->
+            <Border Background="#F8F9FA" 
+                    BorderBrush="#E0E0E0" 
+                    BorderThickness="1" 
+                    CornerRadius="8"
+                    Padding="16"
+                    Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="О разделе" 
+                               FontWeight="SemiBold" 
+                               Margin="0,0,0,8"/>
+                    <TextBlock TextWrapping="Wrap" Foreground="#666666" TextAlignment="Justify">
+                        В данном разделе доступны все справочники системы. 
+                        Для работы с конкретным справочником нажмите на соответствующую карточку.
+                        Каждый справочник поддерживает операции добавления, редактирования, 
+                        удаления и поиска записей. Справочники используются для хранения 
+                        нормативно-справочной информации предметной области.
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <!-- Карточки справочников -->
+            <WrapPanel>
+                <!-- Модели автобусов -->
+                <Border Style="{StaticResource LookupCardStyle}" 
+                        Width="220" 
+                        Height="120"
+                        MouseDown="ModelCard_MouseDown"
+                        ToolTip="Справочник моделей автобусов">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <TextBlock Text="🚌" 
+                                   FontSize="36" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Модели автобусов" 
+                                   FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Цвета -->
+                <Border Style="{StaticResource LookupCardStyle}" 
+                        Width="220" 
+                        Height="120"
+                        MouseDown="ColorCard_MouseDown"
+                        ToolTip="Справочник цветов автобусов">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <TextBlock Text="🎨" 
+                                   FontSize="36" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Цвета" 
+                                   FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Состояния -->
+                <Border Style="{StaticResource LookupCardStyle}" 
+                        Width="220" 
+                        Height="120"
+                        MouseDown="StateCard_MouseDown"
+                        ToolTip="Справочник состояний автобусов">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <TextBlock Text="⚙️" 
+                                   FontSize="36" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Состояния" 
+                                   FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Должности -->
+                <Border Style="{StaticResource LookupCardStyle}" 
+                        Width="220" 
+                        Height="120"
+                        MouseDown="PositionCard_MouseDown"
+                        ToolTip="Справочник должностей сотрудников">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <TextBlock Text="👔" 
+                                   FontSize="36" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Должности" 
+                                   FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Типы смен -->
+                <Border Style="{StaticResource LookupCardStyle}" 
+                        Width="220" 
+                        Height="120"
+                        MouseDown="ShiftCard_MouseDown"
+                        ToolTip="Справочник типов рабочих смен">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <TextBlock Text="🕒" 
+                                   FontSize="36" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Типы смен" 
+                                   FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Улицы -->
+                <Border Style="{StaticResource LookupCardStyle}" 
+                        Width="220" 
+                        Height="120"
+                        MouseDown="StreetCard_MouseDown"
+                        ToolTip="Справочник улиц для адресов">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <TextBlock Text="🏘️" 
+                                   FontSize="36" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Улицы" 
+                                   FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Остановки -->
+                <Border Style="{StaticResource LookupCardStyle}" 
+                        Width="220" 
+                        Height="120"
+                        MouseDown="StopCard_MouseDown"
+                        ToolTip="Справочник остановок маршрутов">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <TextBlock Text="🚏" 
+                                   FontSize="36" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Остановки" 
+                                   FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Кадровые мероприятия -->
+                <Border Style="{StaticResource LookupCardStyle}" 
+                        Width="220" 
+                        Height="120"
+                        MouseDown="EventCard_MouseDown"
+                        ToolTip="Справочник видов кадровых мероприятий">
+                    <StackPanel HorizontalAlignment="Center" 
+                                VerticalAlignment="Center">
+                        <TextBlock Text="📋" 
+                                   FontSize="36" 
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Кадровые мероприятия" 
+                                   FontWeight="SemiBold" 
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+
+            <!-- Инструкция -->
+            <Border Background="#E3F2FD" 
+                    BorderBrush="#BBDEFB" 
+                    BorderThickness="1" 
+                    CornerRadius="8"
+                    Padding="16"
+                    Margin="0,20,0,0">
+                <StackPanel>
+                    <TextBlock Text="💡 Как работать со справочниками:" 
+                               FontWeight="SemiBold" 
+                               Margin="0,0,0,8"/>
+                    <StackPanel Margin="10,0,0,0">
+                        <TextBlock Text="1. Выберите нужный справочник" 
+                                   Foreground="#666666"/>
+                        <TextBlock Text="2. Используйте кнопки для управления записями" 
+                                   Foreground="#666666"/>
+                        <TextBlock Text="3. Для поиска введите текст в поле поиска" 
+                                   Foreground="#666666"/>
+                        <TextBlock Text="4. Для редактирования выберите запись и нажмите 'Редактировать'" 
+                                   Foreground="#666666"/>
+                        <TextBlock Text="5. Для удаления выберите запись и нажмите 'Удалить'" 
+                                   Foreground="#666666"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

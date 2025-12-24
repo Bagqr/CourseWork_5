@@ -1,0 +1,151 @@
+﻿<Window x:Class="BusParkManagementSystem.Views.Dialogs.EmployeeEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:BusParkManagementSystem.Converters"
+        Title="{Binding WindowTitle}" 
+        Height="600" 
+        Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#F5F5F5">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <converters:IntConverter x:Key="IntConverter"/>
+        <converters:DecimalConverter x:Key="DecimalConverter"/>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" 
+                       Text="Данные сотрудника" 
+                       FontSize="20" 
+                       FontWeight="Bold"
+                       Margin="0,0,0,20"/>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- ФИО -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="ФИО*:" Margin="0,0,10,10"/>
+                <TextBox Grid.Row="0" Grid.Column="1" 
+                         Text="{Binding Employee.FullName, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="0,0,0,10"/>
+
+                <!-- Пол -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Пол*:" Margin="0,0,10,10"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" 
+                          ItemsSource="{Binding Genders}"
+                          SelectedItem="{Binding Employee.Gender}"
+                          Margin="0,0,0,10"/>
+
+                <!-- Дата рождения -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Дата рождения*:" Margin="0,0,10,10"/>
+                <DatePicker Grid.Row="2" Grid.Column="1" 
+                            SelectedDate="{Binding Employee.BirthDate}"
+                            Margin="0,0,0,10"/>
+
+                <!-- Должность -->
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Должность*:" Margin="0,0,10,10"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" 
+                          ItemsSource="{Binding Positions}"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding Employee.PositionId}"
+                          DisplayMemberPath="PositionName"
+                          Margin="0,0,0,10"/>
+
+                <!-- Улица -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Улица*:" Margin="0,0,10,10"/>
+                <ComboBox Grid.Row="4" Grid.Column="1" 
+                          ItemsSource="{Binding Streets}"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding Employee.StreetId}"
+                          DisplayMemberPath="StreetName"
+                          Margin="0,0,0,10"/>
+
+                <!-- Дом -->
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Дом*:" Margin="0,0,10,10"/>
+                <TextBox Grid.Row="5" Grid.Column="1" 
+                         Text="{Binding Employee.House, UpdateSourceTrigger=PropertyChanged, 
+                                Converter={StaticResource IntConverter}}"
+                         Margin="0,0,0,10"/>
+
+                <!-- Оклад -->
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Оклад (руб.)*:" Margin="0,0,10,10"/>
+                <TextBox Grid.Row="6" Grid.Column="1" 
+                         Text="{Binding Employee.Salary, UpdateSourceTrigger=PropertyChanged, 
+                                Converter={StaticResource DecimalConverter}}"
+                         Margin="0,0,0,10"/>
+
+                <!-- Стаж -->
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="Стаж (лет):" Margin="0,0,10,10"/>
+                <TextBox Grid.Row="7" Grid.Column="1" 
+                         Text="{Binding Employee.ExperienceYears, UpdateSourceTrigger=PropertyChanged, 
+                                Converter={StaticResource IntConverter}}"
+                         Margin="0,0,0,10"/>
+
+                <!-- Статус -->
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="Статус:" Margin="0,0,10,10"/>
+                <CheckBox Grid.Row="8" Grid.Column="1" 
+                          Content="Активен"
+                          IsChecked="{Binding Employee.IsActive}"
+                          Margin="0,0,0,10"/>
+            </Grid>
+
+            <!-- Ошибки -->
+            <Border Grid.Row="2" 
+                    Background="#FFF2DEDE" 
+                    BorderBrush="#E6B3B3" 
+                    CornerRadius="4"
+                    Padding="10,8"
+                    Margin="0,10,0,10"
+                    Visibility="{Binding HasErrors, Converter={StaticResource BoolToVis}}">
+                <StackPanel>
+                    <TextBlock Text="Ошибки валидации:" FontWeight="Bold"/>
+                    <ItemsControl ItemsSource="{Binding Errors}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- Кнопки -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Отмена" 
+                        Width="100" 
+                        Height="35"
+                        Margin="0,0,12,0"
+                        Command="{Binding CancelCommand}"/>
+                <Button Content="Сохранить" 
+                        Width="100" 
+                        Height="35"
+                        Command="{Binding SaveCommand}"
+                        IsEnabled="{Binding CanSave}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>
