@@ -221,11 +221,8 @@ namespace BusParkManagementSystem
                 }
                 else if (tabItem == TabUsers)
                 {
-                    // Открываем окно управления пользователями
-                    var userManagementWindow = new UserManagementWindow();
-                    userManagementWindow.Owner = this;
-                    userManagementWindow.ShowDialog();
-                    StatusText.Text = "Управление пользователями";
+                    UsersFrame.Content = new UsersView();
+                    StatusText.Text = "Модуль: Пользователи";
                 }
                 else if (tabItem == TabSettings)
                 {
