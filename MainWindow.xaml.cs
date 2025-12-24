@@ -93,36 +93,51 @@ namespace BusParkManagementSystem
                 BtnEmployees.Visibility = await CheckPermission("employees", "read") ? Visibility.Visible : Visibility.Collapsed;
                 BtnTrips.Visibility = await CheckPermission("trips", "read") ? Visibility.Visible : Visibility.Collapsed;
                 BtnReports.Visibility = await CheckPermission("reports", "read") ? Visibility.Visible : Visibility.Collapsed;
-                BtnLookups.Visibility = await CheckPermission("lookups", "read") ? Visibility.Visible : Visibility.Collapsed;
                 BtnQueries.Visibility = await CheckPermission("queries", "read") ? Visibility.Visible : Visibility.Collapsed;
 
+                // Справочники
+                BtnModels.Visibility = await CheckPermission("models", "read") ? Visibility.Visible : Visibility.Collapsed;
+                BtnBusStates.Visibility = await CheckPermission("busstates", "read") ? Visibility.Visible : Visibility.Collapsed;
+                BtnColors.Visibility = await CheckPermission("colors", "read") ? Visibility.Visible : Visibility.Collapsed;
+                BtnPositions.Visibility = await CheckPermission("positions", "read") ? Visibility.Visible : Visibility.Collapsed;
+                BtnStreets.Visibility = await CheckPermission("streets", "read") ? Visibility.Visible : Visibility.Collapsed;
+                BtnStops.Visibility = await CheckPermission("stops", "read") ? Visibility.Visible : Visibility.Collapsed;
+                BtnShiftTypes.Visibility = await CheckPermission("shifttypes", "read") ? Visibility.Visible : Visibility.Collapsed;
+
                 // Кнопки для администратора
-                BtnUsers.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
-                BtnPermissions.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
+                SystemTabItem.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
 
                 // Если все кнопки скрыты, показываем сообщение
-                if (NavigationPanel.Children.Count > 0)
-                {
-                    bool anyVisible = false;
-                    foreach (UIElement element in NavigationPanel.Children)
-                    {
-                        if (element is Button button && button.Visibility == Visibility.Visible)
-                        {
-                            anyVisible = true;
-                            break;
-                        }
-                    }
+                bool anyVisible = false;
+                anyVisible = anyVisible || IsAnyButtonVisibleInTab(DataTabItem);
+                anyVisible = anyVisible || IsAnyButtonVisibleInTab(LookupsTabItem);
+                anyVisible = anyVisible || IsAnyButtonVisibleInTab(DocumentsTabItem);
+                anyVisible = anyVisible || IsAnyButtonVisibleInTab(SystemTabItem);
 
-                    if (!anyVisible)
-                    {
-                        StatusText.Text = "Нет доступных модулей для вашей роли";
-                    }
+                if (!anyVisible)
+                {
+                    StatusText.Text = "Нет доступных модулей для вашей роли";
                 }
             }
             catch (Exception ex)
             {
                 StatusText.Text = $"Ошибка настройки прав доступа: {ex.Message}";
             }
+        }
+
+        private bool IsAnyButtonVisibleInTab(TabItem tabItem)
+        {
+            if (tabItem.Content is StackPanel panel)
+            {
+                foreach (UIElement element in panel.Children)
+                {
+                    if (element is Button button && button.Visibility == Visibility.Visible)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private async Task<bool> CheckPermission(string menuCode, string accessType)
@@ -154,6 +169,42 @@ namespace BusParkManagementSystem
             else if (BtnTrips.Visibility == Visibility.Visible)
             {
                 BtnTrips_Click(null, null);
+            }
+            else if (BtnModels.Visibility == Visibility.Visible)
+            {
+                BtnModels_Click(null, null);
+            }
+            else if (BtnBusStates.Visibility == Visibility.Visible)
+            {
+                BtnBusStates_Click(null, null);
+            }
+            else if (BtnColors.Visibility == Visibility.Visible)
+            {
+                BtnColors_Click(null, null);
+            }
+            else if (BtnPositions.Visibility == Visibility.Visible)
+            {
+                BtnPositions_Click(null, null);
+            }
+            else if (BtnStreets.Visibility == Visibility.Visible)
+            {
+                BtnStreets_Click(null, null);
+            }
+            else if (BtnStops.Visibility == Visibility.Visible)
+            {
+                BtnStops_Click(null, null);
+            }
+            else if (BtnShiftTypes.Visibility == Visibility.Visible)
+            {
+                BtnShiftTypes_Click(null, null);
+            }
+            else if (BtnReports.Visibility == Visibility.Visible)
+            {
+                BtnReports_Click(null, null);
+            }
+            else if (BtnQueries.Visibility == Visibility.Visible)
+            {
+                BtnQueries_Click(null, null);
             }
             else
             {
@@ -250,7 +301,7 @@ namespace BusParkManagementSystem
             {
                 MainContent.Content = new LookupMenuView();
                 StatusText.Text = "Модуль: Справочники";
-                HighlightActiveButton(BtnLookups);
+                HighlightActiveButton(null);
             }
             catch (Exception ex)
             {
@@ -304,6 +355,112 @@ namespace BusParkManagementSystem
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при открытии управления правами: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // Обработчики для справочников
+        private void BtnModels_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new ModelView();
+                StatusText.Text = "Справочник: Модели";
+                HighlightActiveButton(BtnModels);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке справочника моделей: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnBusStates_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new BusStateView();
+                StatusText.Text = "Справочник: Состояния автобусов";
+                HighlightActiveButton(BtnBusStates);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке справочника состояний: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnColors_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new ColorView();
+                StatusText.Text = "Справочник: Цвета";
+                HighlightActiveButton(BtnColors);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке справочника цветов: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnPositions_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new PositionView();
+                StatusText.Text = "Справочник: Должности";
+                HighlightActiveButton(BtnPositions);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке справочника должностей: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnStreets_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new StreetView();
+                StatusText.Text = "Справочник: Улицы";
+                HighlightActiveButton(BtnStreets);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке справочника улиц: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnStops_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new BusStopView();
+                StatusText.Text = "Справочник: Остановки";
+                HighlightActiveButton(BtnStops);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке справочника остановок: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnShiftTypes_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new ShiftTypeView();
+                StatusText.Text = "Справочник: Типы смен";
+                HighlightActiveButton(BtnShiftTypes);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке справочника типов смен: {ex.Message}",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

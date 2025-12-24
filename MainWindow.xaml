@@ -38,21 +38,51 @@
                                VerticalAlignment="Center" 
                                Margin="0,0,12,0"/>
                 </StackPanel>
-                <!-- В разметке -->
-                <WrapPanel Grid.Column="1" 
-           HorizontalAlignment="Center"
-           x:Name="NavigationPanel"
-           Margin="0,0,0,8">
-                    <Button x:Name="BtnBuses" Content="Автобусы" Style="{StaticResource NavButton}" Click="BtnBuses_Click"/>
-                    <Button x:Name="BtnRoutes" Content="Маршруты" Style="{StaticResource NavButton}" Click="BtnRoutes_Click"/>
-                    <Button x:Name="BtnEmployees" Content="Сотрудники" Style="{StaticResource NavButton}" Click="BtnEmployees_Click"/>
-                    <Button x:Name="BtnTrips" Content="Рейсы" Style="{StaticResource NavButton}" Click="BtnTrips_Click"/>
-                    <Button x:Name="BtnReports" Content="Отчёты" Style="{StaticResource NavButton}" Click="BtnReports_Click"/>
-                    <Button x:Name="BtnLookups" Content="Справочники" Style="{StaticResource NavButton}" Click="BtnLookups_Click"/>
-                    <Button x:Name="BtnQueries" Content="Запросы" Style="{StaticResource NavButton}" Click="BtnQueries_Click"/>
-                    <Button x:Name="BtnUsers" Content="Пользователи" Style="{StaticResource NavButton}" Click="BtnUsers_Click" Visibility="Collapsed"/>
-                    <Button x:Name="BtnPermissions" Content="Права доступа" Style="{StaticResource NavButton}" Click="BtnPermissions_Click" Visibility="Collapsed"/>
-                </WrapPanel>
+                
+                <!-- Основное меню с вкладками -->
+                <TabControl Grid.Column="1" 
+                            x:Name="MainMenuTabControl"
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,8"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            TabStripPlacement="Bottom">
+                    <TabItem x:Name="DataTabItem" Header="Данные" Margin="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="BtnBuses" Content="Автобусы" Style="{StaticResource NavButton}" Click="BtnBuses_Click" Margin="2"/>
+                            <Button x:Name="BtnRoutes" Content="Маршруты" Style="{StaticResource NavButton}" Click="BtnRoutes_Click" Margin="2"/>
+                            <Button x:Name="BtnEmployees" Content="Сотрудники" Style="{StaticResource NavButton}" Click="BtnEmployees_Click" Margin="2"/>
+                            <Button x:Name="BtnTrips" Content="Рейсы" Style="{StaticResource NavButton}" Click="BtnTrips_Click" Margin="2"/>
+                        </StackPanel>
+                    </TabItem>
+                    
+                    <TabItem x:Name="LookupsTabItem" Header="Справочники" Margin="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="BtnModels" Content="Модели" Style="{StaticResource NavButton}" Click="BtnModels_Click" Margin="2"/>
+                            <Button x:Name="BtnBusStates" Content="Состояния" Style="{StaticResource NavButton}" Click="BtnBusStates_Click" Margin="2"/>
+                            <Button x:Name="BtnColors" Content="Цвета" Style="{StaticResource NavButton}" Click="BtnColors_Click" Margin="2"/>
+                            <Button x:Name="BtnPositions" Content="Должности" Style="{StaticResource NavButton}" Click="BtnPositions_Click" Margin="2"/>
+                            <Button x:Name="BtnStreets" Content="Улицы" Style="{StaticResource NavButton}" Click="BtnStreets_Click" Margin="2"/>
+                            <Button x:Name="BtnStops" Content="Остановки" Style="{StaticResource NavButton}" Click="BtnStops_Click" Margin="2"/>
+                            <Button x:Name="BtnShiftTypes" Content="Типы смен" Style="{StaticResource NavButton}" Click="BtnShiftTypes_Click" Margin="2"/>
+                        </StackPanel>
+                    </TabItem>
+                    
+                    <TabItem x:Name="DocumentsTabItem" Header="Документы" Margin="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="BtnReports" Content="Отчёты" Style="{StaticResource NavButton}" Click="BtnReports_Click" Margin="2"/>
+                            <Button x:Name="BtnQueries" Content="Запросы" Style="{StaticResource NavButton}" Click="BtnQueries_Click" Margin="2"/>
+                        </StackPanel>
+                    </TabItem>
+                    
+                    <TabItem x:Name="SystemTabItem" Header="Система" Margin="2" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="BtnUsers" Content="Пользователи" Style="{StaticResource NavButton}" Click="BtnUsers_Click" Margin="2"/>
+                            <Button x:Name="BtnPermissions" Content="Права доступа" Style="{StaticResource NavButton}" Click="BtnPermissions_Click" Margin="2"/>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+                
                 <!-- Пользователь -->
                 <StackPanel Grid.Column="2" 
                             Orientation="Horizontal" 
