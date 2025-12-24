@@ -15,6 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -38,21 +39,7 @@
                                VerticalAlignment="Center" 
                                Margin="0,0,12,0"/>
                 </StackPanel>
-                <!-- В разметке -->
-                <WrapPanel Grid.Column="1" 
-           HorizontalAlignment="Center"
-           x:Name="NavigationPanel"
-           Margin="0,0,0,8">
-                    <Button x:Name="BtnBuses" Content="Автобусы" Style="{StaticResource NavButton}" Click="BtnBuses_Click"/>
-                    <Button x:Name="BtnRoutes" Content="Маршруты" Style="{StaticResource NavButton}" Click="BtnRoutes_Click"/>
-                    <Button x:Name="BtnEmployees" Content="Сотрудники" Style="{StaticResource NavButton}" Click="BtnEmployees_Click"/>
-                    <Button x:Name="BtnTrips" Content="Рейсы" Style="{StaticResource NavButton}" Click="BtnTrips_Click"/>
-                    <Button x:Name="BtnReports" Content="Отчёты" Style="{StaticResource NavButton}" Click="BtnReports_Click"/>
-                    <Button x:Name="BtnLookups" Content="Справочники" Style="{StaticResource NavButton}" Click="BtnLookups_Click"/>
-                    <Button x:Name="BtnQueries" Content="Запросы" Style="{StaticResource NavButton}" Click="BtnQueries_Click"/>
-                    <Button x:Name="BtnUsers" Content="Пользователи" Style="{StaticResource NavButton}" Click="BtnUsers_Click" Visibility="Collapsed"/>
-                    <Button x:Name="BtnPermissions" Content="Права доступа" Style="{StaticResource NavButton}" Click="BtnPermissions_Click" Visibility="Collapsed"/>
-                </WrapPanel>
+
                 <!-- Пользователь -->
                 <StackPanel Grid.Column="2" 
                             Orientation="Horizontal" 
@@ -91,10 +78,65 @@
             </Grid>
         </Border>
 
-        <!-- Основная область контента -->
+        <!-- Панель вкладок -->
+        <TabControl x:Name="MainTabControl" 
+                    Grid.Row="1" 
+                    Margin="16,0,16,16"
+                    Background="White"
+                    BorderBrush="#2C3E50"
+                    SelectionChanged="MainTabControl_SelectionChanged">
+            <TabItem x:Name="TabBuses" Header="Автобусы" Visibility="Collapsed">
+                <Frame x:Name="BusesFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabRoutes" Header="Маршруты" Visibility="Collapsed">
+                <Frame x:Name="RoutesFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabEmployees" Header="Сотрудники" Visibility="Collapsed">
+                <Frame x:Name="EmployeesFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabTrips" Header="Рейсы" Visibility="Collapsed">
+                <Frame x:Name="TripsFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabReports" Header="Документы" Visibility="Collapsed">
+                <Frame x:Name="ReportsFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabLookups" Header="Справочники" Visibility="Collapsed">
+                <Frame x:Name="LookupsFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabQueries" Header="Запросы" Visibility="Collapsed">
+                <Frame x:Name="QueriesFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabUsers" Header="Пользователи" Visibility="Collapsed">
+                <Frame x:Name="UsersFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabPermissions" Header="Права доступа" Visibility="Collapsed">
+                <Frame x:Name="PermissionsFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem x:Name="TabSettings" Header="Разное" Visibility="Collapsed">
+                <Frame x:Name="SettingsFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+        </TabControl>
+
+        <!-- Основная область контента (оставляем как резерв для совместимости) -->
         <ContentControl x:Name="MainContent" 
-                Grid.Row="1" 
+                Grid.Row="2" 
                 Margin="16"/>
+
+        <!-- Статус бар -->
+        <StatusBar Grid.Row="3" 
+                   Background="#2C3E50" 
+                   Foreground="White">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="Готово"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Center">
+                <TextBlock x:Name="AccessInfoText" Text=""/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Text="Версия 1.0"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
 
         <!-- Статус бар -->
         <StatusBar Grid.Row="2" 
