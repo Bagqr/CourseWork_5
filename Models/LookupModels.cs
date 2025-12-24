@@ -10,65 +10,100 @@ namespace BusParkManagementSystem.Models
     // === ОСНОВНЫЕ МОДЕЛИ СПРАВОЧНИКОВ ===
 
     // 1. Модель автобуса
-    public class Model
+    public class Model : LookupModel
     {
         public int Id { get; set; }
         public string ModelName { get; set; }
+        public override string Name 
+        { 
+            get { return ModelName; } 
+            set { ModelName = value; } 
+        }
         public override string ToString() => ModelName;
     }
 
     // 2. Состояние автобуса
-    public class BusState
+    public class BusState : LookupModel
     {
         public int Id { get; set; }
         public string StateName { get; set; }
+        public override string Name 
+        { 
+            get { return StateName; } 
+            set { StateName = value; } 
+        }
         public override string ToString() => StateName;
     }
 
     // 3. Цвет автобуса
-    public class Color
+    public class Color : LookupModel
     {
         public int Id { get; set; }
         public string ColorName { get; set; }
+        public override string Name 
+        { 
+            get { return ColorName; } 
+            set { ColorName = value; } 
+        }
         public override string ToString() => ColorName;
     }
 
     // 4. Должность сотрудника
-    public class Position
+    public class Position : LookupModel
     {
         public int Id { get; set; }
         public string PositionName { get; set; }
         public decimal? BaseSalary { get; set; }
         public decimal? BonusPercent { get; set; }
+        public override string Name 
+        { 
+            get { return PositionName; } 
+            set { PositionName = value; } 
+        }
         public override string ToString() => PositionName;
     }
 
     // 5. Улица для адреса
-    public class Street
+    public class Street : LookupModel
     {
         public int Id { get; set; }
         public string StreetName { get; set; }
+        public override string Name 
+        { 
+            get { return StreetName; } 
+            set { StreetName = value; } 
+        }
         public override string ToString() => StreetName;
     }
 
     // 6. Вид кадрового мероприятия
-    public class PersonnelEventType
+    public class PersonnelEventType : LookupModel
     {
         public int Id { get; set; }
         public string EventName { get; set; }
+        public override string Name 
+        { 
+            get { return EventName; } 
+            set { EventName = value; } 
+        }
         public override string ToString() => EventName;
     }
 
     // 7. Тип смены
-    public class ShiftType
+    public class ShiftType : LookupModel
     {
         public int Id { get; set; }
         public string ShiftName { get; set; }
+        public override string Name 
+        { 
+            get { return ShiftName; } 
+            set { ShiftName = value; } 
+        }
         public override string ToString() => ShiftName;
     }
 
     // 8. Остановка маршрута
-    public class BusStop
+    public class BusStop : LookupModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

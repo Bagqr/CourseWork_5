@@ -118,7 +118,7 @@ namespace BusParkManagementSystem
 
     public class PositionViewModel : BasePermissionViewModel
     {
-        public List<LookupModel> Items { get; set; } = new List<LookupModel>();
+        public List<Position> Items { get; set; } = new List<Position>();
 
         public PositionViewModel()
         {
@@ -148,22 +148,22 @@ namespace BusParkManagementSystem
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка загрузки должностей: {ex.Message}");
-                Items = new List<LookupModel>();
+                Items = new List<Position>();
             }
         }
 
-        private async Task<List<LookupModel>> LoadPositionsFromDatabase()
+        private async Task<List<Position>> LoadPositionsFromDatabase()
         {
             // В реальном приложении здесь будет вызов репозитория
             // Пока возвращаем тестовые данные
-            return new List<LookupModel>
+            return new List<Position>
             {
-                new LookupModel { Id = 1, Name = "Водитель" },
-                new LookupModel { Id = 2, Name = "Кондуктор" },
-                new LookupModel { Id = 3, Name = "Директор" },
-                new LookupModel { Id = 4, Name = "Диспетчер" },
-                new LookupModel { Id = 5, Name = "Бухгалтер" },
-                new LookupModel { Id = 6, Name = "Инженер гаража" }
+                new Position { Id = 1, PositionName = "Водитель" },
+                new Position { Id = 2, PositionName = "Кондуктор" },
+                new Position { Id = 3, PositionName = "Директор" },
+                new Position { Id = 4, PositionName = "Диспетчер" },
+                new Position { Id = 5, PositionName = "Бухгалтер" },
+                new Position { Id = 6, PositionName = "Инженер гаража" }
             };
         }
     }

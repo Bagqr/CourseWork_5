@@ -118,7 +118,7 @@ namespace BusParkManagementSystem
 
     public class ShiftTypeViewModel : BasePermissionViewModel
     {
-        public List<LookupModel> Items { get; set; } = new List<LookupModel>();
+        public List<ShiftType> Items { get; set; } = new List<ShiftType>();
 
         public ShiftTypeViewModel()
         {
@@ -148,20 +148,20 @@ namespace BusParkManagementSystem
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка загрузки типов смен: {ex.Message}");
-                Items = new List<LookupModel>();
+                Items = new List<ShiftType>();
             }
         }
 
-        private async Task<List<LookupModel>> LoadShiftTypesFromDatabase()
+        private async Task<List<ShiftType>> LoadShiftTypesFromDatabase()
         {
             // В реальном приложении здесь будет вызов репозитория
             // Пока возвращаем тестовые данные
-            return new List<LookupModel>
+            return new List<ShiftType>
             {
-                new LookupModel { Id = 1, Name = "Дневная" },
-                new LookupModel { Id = 2, Name = "Ночная" },
-                new LookupModel { Id = 3, Name = "Сменный" },
-                new LookupModel { Id = 4, Name = "Выходной" }
+                new ShiftType { Id = 1, ShiftName = "Дневная" },
+                new ShiftType { Id = 2, ShiftName = "Ночная" },
+                new ShiftType { Id = 3, ShiftName = "Сменный" },
+                new ShiftType { Id = 4, ShiftName = "Выходной" }
             };
         }
     }
