@@ -44,12 +44,6 @@
                 <StackPanel Grid.Column="2" 
                             Orientation="Horizontal" 
                             HorizontalAlignment="Right">
-                    <Button Content="Справка" 
-                            Style="{StaticResource PrimaryButton}"
-                            Width="80"
-                            Height="40"
-                            Margin="0,0,5,0"
-                            Click="BtnHelp_Click"/>
                     <StackPanel Margin="0,0,12,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="RoleIconText" 
@@ -84,7 +78,8 @@
                     Margin="16,0,16,16"
                     Background="White"
                     BorderBrush="#2C3E50"
-                    SelectionChanged="MainTabControl_SelectionChanged">
+                    SelectionChanged="MainTabControl_SelectionChanged"
+                    MouseWheel="MainTabControl_MouseWheel">
             <TabItem x:Name="TabBuses" Header="Автобусы" Visibility="Collapsed">
                 <Frame x:Name="BusesFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
@@ -109,9 +104,7 @@
             <TabItem x:Name="TabUsers" Header="Пользователи" Visibility="Collapsed">
                 <Frame x:Name="UsersFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
-            <TabItem x:Name="TabPermissions" Header="Права доступа" Visibility="Collapsed">
-                <Frame x:Name="PermissionsFrame" NavigationUIVisibility="Hidden"/>
-            </TabItem>
+
             <TabItem x:Name="TabSettings" Header="Разное" Visibility="Collapsed">
                 <Frame x:Name="SettingsFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
