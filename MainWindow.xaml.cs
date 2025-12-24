@@ -98,7 +98,6 @@ namespace BusParkManagementSystem
 
                 // Вкладки для администратора
                 TabUsers.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
-                TabPermissions.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
 
                 // Вкладка "Разное" - всегда видима для всех пользователей
                 TabSettings.Visibility = Visibility.Visible;
@@ -227,14 +226,6 @@ namespace BusParkManagementSystem
                     userManagementWindow.Owner = this;
                     userManagementWindow.ShowDialog();
                     StatusText.Text = "Управление пользователями";
-                }
-                else if (tabItem == TabPermissions)
-                {
-                    // Открываем окно управления правами
-                    var permissionManagementWindow = new PermissionManagementWindow();
-                    permissionManagementWindow.Owner = this;
-                    permissionManagementWindow.ShowDialog();
-                    StatusText.Text = "Управление правами доступа";
                 }
                 else if (tabItem == TabSettings)
                 {

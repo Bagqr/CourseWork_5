@@ -1,0 +1,28 @@
+```
+# Build artifacts
+*.obj
+*.exe
+*.dll
+*.pdb
+*.user
+*.sln.docstates
+
+# Dependencies
+packages/
+node_modules/
+venv/
+.venv/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# User-specific files
+.vs/
+.vscode/
+*.userprefs
+```

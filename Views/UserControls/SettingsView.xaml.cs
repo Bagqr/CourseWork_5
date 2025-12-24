@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using BusParkManagementSystem.Models;
+using BusParkManagementSystem.Views;
 
 namespace BusParkManagementSystem.Views.UserControls
 {
@@ -127,6 +128,25 @@ namespace BusParkManagementSystem.Views.UserControls
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при смене пароля: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var helpWindow = new HelpWindow();
+                var mainWindow = Window.GetWindow(this) as MainWindow;
+                if (mainWindow != null)
+                {
+                    helpWindow.Owner = mainWindow;
+                }
+                helpWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при открытии справки: {ex.Message}",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
