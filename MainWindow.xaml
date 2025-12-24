@@ -49,9 +49,11 @@
                     <Button x:Name="BtnTrips" Content="Рейсы" Style="{StaticResource NavButton}" Click="BtnTrips_Click"/>
                     <Button x:Name="BtnReports" Content="Отчёты" Style="{StaticResource NavButton}" Click="BtnReports_Click"/>
                     <Button x:Name="BtnLookups" Content="Справочники" Style="{StaticResource NavButton}" Click="BtnLookups_Click"/>
+                    <Button x:Name="BtnDocuments" Content="Документы" Style="{StaticResource NavButton}" Click="BtnDocuments_Click"/>
                     <Button x:Name="BtnQueries" Content="Запросы" Style="{StaticResource NavButton}" Click="BtnQueries_Click"/>
                     <Button x:Name="BtnUsers" Content="Пользователи" Style="{StaticResource NavButton}" Click="BtnUsers_Click" Visibility="Collapsed"/>
                     <Button x:Name="BtnPermissions" Content="Права доступа" Style="{StaticResource NavButton}" Click="BtnPermissions_Click" Visibility="Collapsed"/>
+                    <Button x:Name="BtnSettings" Content="Разное" Style="{StaticResource NavButton}" Click="BtnSettings_Click"/>
                 </WrapPanel>
                 <!-- Пользователь -->
                 <StackPanel Grid.Column="2" 
