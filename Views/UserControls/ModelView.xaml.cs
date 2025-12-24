@@ -118,7 +118,7 @@ namespace BusParkManagementSystem
 
     public class ModelViewModel : BasePermissionViewModel
     {
-        public List<LookupModel> Items { get; set; } = new List<LookupModel>();
+        public List<Model> Items { get; set; } = new List<Model>();
 
         public ModelViewModel()
         {
@@ -148,21 +148,21 @@ namespace BusParkManagementSystem
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка загрузки моделей: {ex.Message}");
-                Items = new List<LookupModel>();
+                Items = new List<Model>();
             }
         }
 
-        private async Task<List<LookupModel>> LoadModelsFromDatabase()
+        private async Task<List<Model>> LoadModelsFromDatabase()
         {
             // В реальном приложении здесь будет вызов репозитория
             // Пока возвращаем тестовые данные
-            return new List<LookupModel>
+            return new List<Model>
             {
-                new LookupModel { Id = 1, Name = "ЛАЗ-695" },
-                new LookupModel { Id = 2, Name = "ЛИАЗ-5256" },
-                new LookupModel { Id = 3, Name = "ПАЗ-3205" },
-                new LookupModel { Id = 4, Name = "МАЗ-103" },
-                new LookupModel { Id = 5, Name = "ИКАРУС-256" }
+                new Model { Id = 1, ModelName = "ЛАЗ-695" },
+                new Model { Id = 2, ModelName = "ЛИАЗ-5256" },
+                new Model { Id = 3, ModelName = "ПАЗ-3205" },
+                new Model { Id = 4, ModelName = "МАЗ-103" },
+                new Model { Id = 5, ModelName = "ИКАРУС-256" }
             };
         }
     }

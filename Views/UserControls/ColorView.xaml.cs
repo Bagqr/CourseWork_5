@@ -118,7 +118,7 @@ namespace BusParkManagementSystem
 
     public class ColorViewModel : BasePermissionViewModel
     {
-        public List<LookupModel> Items { get; set; } = new List<LookupModel>();
+        public List<Color> Items { get; set; } = new List<Color>();
 
         public ColorViewModel()
         {
@@ -148,22 +148,22 @@ namespace BusParkManagementSystem
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка загрузки цветов: {ex.Message}");
-                Items = new List<LookupModel>();
+                Items = new List<Color>();
             }
         }
 
-        private async Task<List<LookupModel>> LoadColorsFromDatabase()
+        private async Task<List<Color>> LoadColorsFromDatabase()
         {
             // В реальном приложении здесь будет вызов репозитория
             // Пока возвращаем тестовые данные
-            return new List<LookupModel>
+            return new List<Color>
             {
-                new LookupModel { Id = 1, Name = "Белый" },
-                new LookupModel { Id = 2, Name = "Синий" },
-                new LookupModel { Id = 3, Name = "Красный" },
-                new LookupModel { Id = 4, Name = "Зеленый" },
-                new LookupModel { Id = 5, Name = "Желтый" },
-                new LookupModel { Id = 6, Name = "Черный" }
+                new Color { Id = 1, ColorName = "Белый" },
+                new Color { Id = 2, ColorName = "Синий" },
+                new Color { Id = 3, ColorName = "Красный" },
+                new Color { Id = 4, ColorName = "Зеленый" },
+                new Color { Id = 5, ColorName = "Желтый" },
+                new Color { Id = 6, ColorName = "Черный" }
             };
         }
     }

@@ -118,7 +118,7 @@ namespace BusParkManagementSystem
 
     public class BusStopViewModel : BasePermissionViewModel
     {
-        public List<LookupModel> Items { get; set; } = new List<LookupModel>();
+        public List<BusStop> Items { get; set; } = new List<BusStop>();
 
         public BusStopViewModel()
         {
@@ -148,21 +148,21 @@ namespace BusParkManagementSystem
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка загрузки остановок: {ex.Message}");
-                Items = new List<LookupModel>();
+                Items = new List<BusStop>();
             }
         }
 
-        private async Task<List<LookupModel>> LoadBusStopsFromDatabase()
+        private async Task<List<BusStop>> LoadBusStopsFromDatabase()
         {
             // В реальном приложении здесь будет вызов репозитория
             // Пока возвращаем тестовые данные
-            return new List<LookupModel>
+            return new List<BusStop>
             {
-                new LookupModel { Id = 1, Name = "Центральная площадь" },
-                new LookupModel { Id = 2, Name = "Железнодорожный вокзал" },
-                new LookupModel { Id = 3, Name = "Автовокзал" },
-                new LookupModel { Id = 4, Name = "Университет" },
-                new LookupModel { Id = 5, Name = "Городская больница" }
+                new BusStop { Id = 1, Name = "Центральная площадь" },
+                new BusStop { Id = 2, Name = "Железнодорожный вокзал" },
+                new BusStop { Id = 3, Name = "Автовокзал" },
+                new BusStop { Id = 4, Name = "Университет" },
+                new BusStop { Id = 5, Name = "Городская больница" }
             };
         }
     }

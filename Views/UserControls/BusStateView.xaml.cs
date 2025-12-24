@@ -118,7 +118,7 @@ namespace BusParkManagementSystem
 
     public class BusStateViewModel : BasePermissionViewModel
     {
-        public List<LookupModel> Items { get; set; } = new List<LookupModel>();
+        public List<BusState> Items { get; set; } = new List<BusState>();
 
         public BusStateViewModel()
         {
@@ -148,21 +148,21 @@ namespace BusParkManagementSystem
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка загрузки состояний: {ex.Message}");
-                Items = new List<LookupModel>();
+                Items = new List<BusState>();
             }
         }
 
-        private async Task<List<LookupModel>> LoadBusStatesFromDatabase()
+        private async Task<List<BusState>> LoadBusStatesFromDatabase()
         {
             // В реальном приложении здесь будет вызов репозитория
             // Пока возвращаем тестовые данные
-            return new List<LookupModel>
+            return new List<BusState>
             {
-                new LookupModel { Id = 1, Name = "ИСПРАВЕН" },
-                new LookupModel { Id = 2, Name = "НЕИСПРАВЕН" },
-                new LookupModel { Id = 3, Name = "В РЕМОНТЕ" },
-                new LookupModel { Id = 4, Name = "В ЭКСПЛУАТАЦИИ" },
-                new LookupModel { Id = 5, Name = "НЕ В ЭКСПЛУАТАЦИИ" }
+                new BusState { Id = 1, StateName = "ИСПРАВЕН" },
+                new BusState { Id = 2, StateName = "НЕИСПРАВЕН" },
+                new BusState { Id = 3, StateName = "В РЕМОНТЕ" },
+                new BusState { Id = 4, StateName = "В ЭКСПЛУАТАЦИИ" },
+                new BusState { Id = 5, StateName = "НЕ В ЭКСПЛУАТАЦИИ" }
             };
         }
     }

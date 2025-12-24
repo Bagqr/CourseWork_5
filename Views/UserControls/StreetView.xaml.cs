@@ -118,7 +118,7 @@ namespace BusParkManagementSystem
 
     public class StreetViewModel : BasePermissionViewModel
     {
-        public List<LookupModel> Items { get; set; } = new List<LookupModel>();
+        public List<Street> Items { get; set; } = new List<Street>();
 
         public StreetViewModel()
         {
