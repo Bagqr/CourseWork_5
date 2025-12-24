@@ -259,6 +259,21 @@ namespace BusParkManagementSystem
             }
         }
 
+        private void BtnDocuments_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new QueriesView(); // Используем существующее окно запросов, но с документами
+                StatusText.Text = "Модуль: Документы";
+                HighlightActiveButton(BtnDocuments);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке модуля документов: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void BtnQueries_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -304,6 +319,23 @@ namespace BusParkManagementSystem
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при открытии управления правами: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Открываем окно настроек
+                var settingsWindow = new SettingsWindow();
+                settingsWindow.Owner = this;
+                settingsWindow.ShowDialog();
+                StatusText.Text = "Настройки";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при открытии настроек: {ex.Message}",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
