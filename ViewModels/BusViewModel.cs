@@ -158,8 +158,12 @@ namespace BusParkManagementSystem.ViewModels
                 MessageBox.Show(errorDetails, "Ошибка инициализации",
                     MessageBoxButton.OK, MessageBoxImage.Error);
 
-                // Для отладки - запись в файл
-                System.IO.File.WriteAllText("error_log.txt",
+                // Для отладки - запись в файл в папке приложения
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string appFolder = System.IO.Path.Combine(appDataPath, "BusParkManagementSystem");
+                System.IO.Directory.CreateDirectory(appFolder); // Создаем папку приложения, если её нет
+                string logFilePath = System.IO.Path.Combine(appFolder, "error_log.txt");
+                System.IO.File.WriteAllText(logFilePath,
                     $"{DateTime.Now}: {ex.ToString()}\n\nInner Exception: {ex.InnerException?.ToString()}");
             }
         }

@@ -1,0 +1,50 @@
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.dll
+*.exe
+*.so
+*.class
+*.out
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+.env
+.env.local
+.env.*
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Editors
+.vscode/
+.idea/
+
+# Build directories
+dist/
+build/
+target/
+*.pyc
+*.pyo
+*.pyd
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# MyPy cache
+.mypy_cache/
+# Pytest cache
+.pytest_cache/
