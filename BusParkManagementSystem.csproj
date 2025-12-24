@@ -194,6 +194,9 @@
     <Compile Include="Views\UserControls\RoutesView.xaml.cs">
       <DependentUpon>RoutesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\TripsView.xaml.cs">
       <DependentUpon>TripsView.xaml</DependentUpon>
     </Compile>
@@ -273,6 +276,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\RoutesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\TripsView.xaml">

@@ -167,6 +167,14 @@ namespace BusParkManagementSystem.Repositories
             }
         }
 
+        public async Task<bool> ValidatePasswordAsync(string username, string password)
+        {
+            var user = await GetByUsernameAsync(username);
+            if (user == null) return false;
+
+            return VerifyPassword(password, user.PasswordHash);
+        }
+
         public async Task<bool> ChangePasswordAsync(int userId, string oldPassword, string newPassword)
         {
             var user = await GetByIdAsync(userId);

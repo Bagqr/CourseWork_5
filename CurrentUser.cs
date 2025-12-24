@@ -42,5 +42,23 @@ namespace BusParkManagementSystem
             User = null;
             Permissions = null;
         }
+
+        public static async Task<bool> ValidatePasswordAsync(string password)
+        {
+            if (!IsAuthenticated || User == null) return false;
+
+            // Проверяем пароль с использованием репозитория пользователей
+            var userRepository = new Repositories.UserRepository(App.ConnectionString);
+            return await userRepository.ValidatePasswordAsync(User.Username, password);
+        }
+
+        public static async Task<bool> ChangePasswordAsync(string currentPassword, string newPassword)
+        {
+            if (!IsAuthenticated || User == null) return false;
+
+            // Меняем пароль с использованием репозитория пользователей
+            var userRepository = new Repositories.UserRepository(App.ConnectionString);
+            return await userRepository.ChangePasswordAsync(User.Id, currentPassword, newPassword);
+        }
     }
 }

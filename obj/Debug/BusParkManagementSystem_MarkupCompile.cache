@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Богдан\Desktop\прогусы\курс5\(6) частично работает круд эмплойи\(5) круд для автобусов\BusParkManagementSystem\obj\Debug\
+C:\Users\Богдан\Desktop\прогусы\Курс5_гит8\obj\Debug\
 BusParkManagementSystem
 none
 false
 DEBUG;TRACE
-C:\Users\Богдан\Desktop\прогусы\курс5\(6) частично работает круд эмплойи\(5) круд для автобусов\BusParkManagementSystem\App.xaml
-2413464723
+C:\Users\Богдан\Desktop\прогусы\Курс5_гит8\App.xaml
+252074670632
 2-850517680
-81966201820
-24388008455
-ChangePasswordWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RegistrationWindow.xaml;Views\Dialogs\BusEditDialog.xaml;Views\Dialogs\DismissalDialog.xaml;Views\Dialogs\EmployeeEditDialog.xaml;Views\Dialogs\PositionEditDialog.xaml;Views\Dialogs\RouteEditDialog.xaml;Views\Dialogs\TripCompletionDialog.xaml;Views\Dialogs\TripEditDialog.xaml;Views\PermissionManagementWindow.xaml;Views\UserControls\AccessDeniedView.xaml;Views\UserControls\BusesView.xaml;Views\UserControls\EmployeesView.xaml;Views\UserControls\HelpWindow.xaml;Views\UserControls\LookupMenuView.xaml;Views\UserControls\LookupView.xaml;Views\UserControls\QueriesView.xaml;Views\UserControls\ReportsView.xaml;Views\UserControls\RoutesView.xaml;Views\UserControls\TripsView.xaml;Views\UserManagementWindow.xaml;Views\UserPermissionsWindow.xaml;
+821048264675
+24-1677312157
+ChangePasswordWindow.xaml;LoginWindow.xaml;MainWindow.xaml;RegistrationWindow.xaml;Views\Dialogs\BusEditDialog.xaml;Views\Dialogs\DismissalDialog.xaml;Views\Dialogs\EmployeeEditDialog.xaml;Views\Dialogs\PositionEditDialog.xaml;Views\Dialogs\RouteEditDialog.xaml;Views\Dialogs\TripCompletionDialog.xaml;Views\Dialogs\TripEditDialog.xaml;Views\PermissionManagementWindow.xaml;Views\UserControls\AccessDeniedView.xaml;Views\UserControls\BusesView.xaml;Views\UserControls\EmployeesView.xaml;Views\UserControls\HelpWindow.xaml;Views\UserControls\LookupMenuView.xaml;Views\UserControls\LookupView.xaml;Views\UserControls\QueriesView.xaml;Views\UserControls\ReportsView.xaml;Views\UserControls\RoutesView.xaml;Views\UserControls\SettingsView.xaml;Views\UserControls\TripsView.xaml;Views\UserManagementWindow.xaml;Views\UserPermissionsWindow.xaml;
 
 False
 

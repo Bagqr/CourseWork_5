@@ -34,11 +34,11 @@ namespace BusParkManagementSystem
                 // Обновляем информацию о пользователе
                 UpdateUserInfo();
 
-                // Настраиваем видимость кнопок в зависимости от прав
-                await ConfigureNavigationButtons();
+                // Настраиваем видимость вкладок в зависимости от прав
+                await ConfigureTabVisibility();
 
-                // Загружаем первую доступную страницу
-                LoadDefaultPage();
+                // Загружаем первую доступную вкладку
+                LoadDefaultTab();
 
                 StatusText.Text = "Система готова к работе";
             }
@@ -83,40 +83,40 @@ namespace BusParkManagementSystem
             }
         }
 
-        private async Task ConfigureNavigationButtons()
+        private async Task ConfigureTabVisibility()
         {
             try
             {
-                // Проверяем права для каждой кнопки и показываем/скрываем их
-                BtnBuses.Visibility = await CheckPermission("buses", "read") ? Visibility.Visible : Visibility.Collapsed;
-                BtnRoutes.Visibility = await CheckPermission("routes", "read") ? Visibility.Visible : Visibility.Collapsed;
-                BtnEmployees.Visibility = await CheckPermission("employees", "read") ? Visibility.Visible : Visibility.Collapsed;
-                BtnTrips.Visibility = await CheckPermission("trips", "read") ? Visibility.Visible : Visibility.Collapsed;
-                BtnReports.Visibility = await CheckPermission("reports", "read") ? Visibility.Visible : Visibility.Collapsed;
-                BtnLookups.Visibility = await CheckPermission("lookups", "read") ? Visibility.Visible : Visibility.Collapsed;
-                BtnQueries.Visibility = await CheckPermission("queries", "read") ? Visibility.Visible : Visibility.Collapsed;
+                // Проверяем права для каждой вкладки и показываем/скрываем их
+                TabBuses.Visibility = await CheckPermission("buses", "read") ? Visibility.Visible : Visibility.Collapsed;
+                TabRoutes.Visibility = await CheckPermission("routes", "read") ? Visibility.Visible : Visibility.Collapsed;
+                TabEmployees.Visibility = await CheckPermission("employees", "read") ? Visibility.Visible : Visibility.Collapsed;
+                TabTrips.Visibility = await CheckPermission("trips", "read") ? Visibility.Visible : Visibility.Collapsed;
+                TabReports.Visibility = await CheckPermission("reports", "read") ? Visibility.Visible : Visibility.Collapsed;
+                TabLookups.Visibility = await CheckPermission("lookups", "read") ? Visibility.Visible : Visibility.Collapsed;
+                TabQueries.Visibility = await CheckPermission("queries", "read") ? Visibility.Visible : Visibility.Collapsed;
 
-                // Кнопки для администратора
-                BtnUsers.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
-                BtnPermissions.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
+                // Вкладки для администратора
+                TabUsers.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
+                TabPermissions.Visibility = (CurrentUser.User?.Role == "Администратор") ? Visibility.Visible : Visibility.Collapsed;
 
-                // Если все кнопки скрыты, показываем сообщение
-                if (NavigationPanel.Children.Count > 0)
+                // Вкладка "Разное" - всегда видима для всех пользователей
+                TabSettings.Visibility = Visibility.Visible;
+
+                // Если все вкладки скрыты, показываем сообщение
+                bool anyVisible = false;
+                foreach (TabItem tabItem in MainTabControl.Items)
                 {
-                    bool anyVisible = false;
-                    foreach (UIElement element in NavigationPanel.Children)
+                    if (tabItem.Visibility == Visibility.Visible)
                     {
-                        if (element is Button button && button.Visibility == Visibility.Visible)
-                        {
-                            anyVisible = true;
-                            break;
-                        }
+                        anyVisible = true;
+                        break;
                     }
+                }
 
-                    if (!anyVisible)
-                    {
-                        StatusText.Text = "Нет доступных модулей для вашей роли";
-                    }
+                if (!anyVisible)
+                {
+                    StatusText.Text = "Нет доступных модулей для вашей роли";
                 }
             }
             catch (Exception ex)
@@ -125,35 +125,48 @@ namespace BusParkManagementSystem
             }
         }
 
-        private async Task<bool> CheckPermission(string menuCode, string accessType)
+        private void LoadDefaultTab()
         {
-            if (!CurrentUser.IsAuthenticated) return false;
-
-            // Администратор имеет доступ ко всему
-            if (CurrentUser.User?.Role == "Администратор") return true;
-
-            // Проверяем права через CurrentUser
-            return await CurrentUser.HasPermissionAsync(menuCode, accessType);
-        }
-
-        private void LoadDefaultPage()
-        {
-            // Загружаем первую доступную страницу
-            if (BtnBuses.Visibility == Visibility.Visible)
+            // Загружаем первую доступную вкладку
+            if (TabBuses.Visibility == Visibility.Visible)
             {
-                BtnBuses_Click(null, null);
+                MainTabControl.SelectedItem = TabBuses;
+                LoadTabContent(TabBuses);
             }
-            else if (BtnRoutes.Visibility == Visibility.Visible)
+            else if (TabRoutes.Visibility == Visibility.Visible)
             {
-                BtnRoutes_Click(null, null);
+                MainTabControl.SelectedItem = TabRoutes;
+                LoadTabContent(TabRoutes);
             }
-            else if (BtnEmployees.Visibility == Visibility.Visible)
+            else if (TabEmployees.Visibility == Visibility.Visible)
             {
-                BtnEmployees_Click(null, null);
+                MainTabControl.SelectedItem = TabEmployees;
+                LoadTabContent(TabEmployees);
             }
-            else if (BtnTrips.Visibility == Visibility.Visible)
+            else if (TabTrips.Visibility == Visibility.Visible)
             {
-                BtnTrips_Click(null, null);
+                MainTabControl.SelectedItem = TabTrips;
+                LoadTabContent(TabTrips);
+            }
+            else if (TabLookups.Visibility == Visibility.Visible)
+            {
+                MainTabControl.SelectedItem = TabLookups;
+                LoadTabContent(TabLookups);
+            }
+            else if (TabReports.Visibility == Visibility.Visible)
+            {
+                MainTabControl.SelectedItem = TabReports;
+                LoadTabContent(TabReports);
+            }
+            else if (TabQueries.Visibility == Visibility.Visible)
+            {
+                MainTabControl.SelectedItem = TabQueries;
+                LoadTabContent(TabQueries);
+            }
+            else if (TabSettings.Visibility == Visibility.Visible)
+            {
+                MainTabControl.SelectedItem = TabSettings;
+                LoadTabContent(TabSettings);
             }
             else
             {
@@ -168,144 +181,143 @@ namespace BusParkManagementSystem
             }
         }
 
-        // Обработчики кликов по кнопкам навигации
-        private void BtnBuses_Click(object sender, RoutedEventArgs e)
+        private void LoadTabContent(TabItem tabItem)
         {
             try
             {
-                MainContent.Content = new BusesView();
-                StatusText.Text = "Модуль: Автобусы";
-                HighlightActiveButton(BtnBuses);
+                if (tabItem == TabBuses)
+                {
+                    BusesFrame.Content = new BusesView();
+                    StatusText.Text = "Модуль: Автобусы";
+                }
+                else if (tabItem == TabRoutes)
+                {
+                    RoutesFrame.Content = new RoutesView();
+                    StatusText.Text = "Модуль: Маршруты";
+                }
+                else if (tabItem == TabEmployees)
+                {
+                    EmployeesFrame.Content = new EmployeesView();
+                    StatusText.Text = "Модуль: Сотрудники";
+                }
+                else if (tabItem == TabTrips)
+                {
+                    TripsFrame.Content = new TripsView();
+                    StatusText.Text = "Модуль: Рейсы";
+                }
+                else if (tabItem == TabReports)
+                {
+                    ReportsFrame.Content = new ReportsView();
+                    StatusText.Text = "Модуль: Документы";
+                }
+                else if (tabItem == TabLookups)
+                {
+                    LookupsFrame.Content = new LookupMenuView();
+                    StatusText.Text = "Модуль: Справочники";
+                }
+                else if (tabItem == TabQueries)
+                {
+                    QueriesFrame.Content = new QueriesView();
+                    StatusText.Text = "Модуль: Запросы";
+                }
+                else if (tabItem == TabUsers)
+                {
+                    // Открываем окно управления пользователями
+                    var userManagementWindow = new UserManagementWindow();
+                    userManagementWindow.Owner = this;
+                    userManagementWindow.ShowDialog();
+                    StatusText.Text = "Управление пользователями";
+                }
+                else if (tabItem == TabPermissions)
+                {
+                    // Открываем окно управления правами
+                    var permissionManagementWindow = new PermissionManagementWindow();
+                    permissionManagementWindow.Owner = this;
+                    permissionManagementWindow.ShowDialog();
+                    StatusText.Text = "Управление правами доступа";
+                }
+                else if (tabItem == TabSettings)
+                {
+                    // Открываем окно настроек с подпунктами "Настройка" и "Сменить пароль"
+                    var settingsView = new SettingsView();
+                    SettingsFrame.Content = settingsView;
+                    StatusText.Text = "Модуль: Разное";
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при загрузке модуля автобусов: {ex.Message}",
+                MessageBox.Show($"Ошибка при загрузке содержимого вкладки: {ex.Message}",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void MainTabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (MainTabControl.SelectedItem != null)
+            {
+                LoadTabContent((TabItem)MainTabControl.SelectedItem);
+            }
+        }
+
+        // Обработчики кликов по кнопкам навигации - оставляем для совместимости
+        private void BtnBuses_Click(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = TabBuses;
+            LoadTabContent(TabBuses);
         }
 
         private void BtnRoutes_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                MainContent.Content = new RoutesView();
-                StatusText.Text = "Модуль: Маршруты";
-                HighlightActiveButton(BtnRoutes);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке модуля маршрутов: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MainTabControl.SelectedItem = TabRoutes;
+            LoadTabContent(TabRoutes);
         }
 
         private void BtnEmployees_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                MainContent.Content = new EmployeesView();
-                StatusText.Text = "Модуль: Сотрудники";
-                HighlightActiveButton(BtnEmployees);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке модуля сотрудников: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MainTabControl.SelectedItem = TabEmployees;
+            LoadTabContent(TabEmployees);
         }
 
         private void BtnTrips_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                MainContent.Content = new TripsView();
-                StatusText.Text = "Модуль: Рейсы";
-                HighlightActiveButton(BtnTrips);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке модуля рейсов: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MainTabControl.SelectedItem = TabTrips;
+            LoadTabContent(TabTrips);
         }
 
         private void BtnReports_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                MainContent.Content = new ReportsView();
-                StatusText.Text = "Модуль: Отчёты";
-                HighlightActiveButton(BtnReports);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке модуля отчётов: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MainTabControl.SelectedItem = TabReports;
+            LoadTabContent(TabReports);
         }
 
         public void BtnLookups_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                MainContent.Content = new LookupMenuView();
-                StatusText.Text = "Модуль: Справочники";
-                HighlightActiveButton(BtnLookups);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке модуля справочников: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MainTabControl.SelectedItem = TabLookups;
+            LoadTabContent(TabLookups);
         }
 
         private void BtnQueries_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                MainContent.Content = new QueriesView();
-                StatusText.Text = "Модуль: Запросы";
-                HighlightActiveButton(BtnQueries);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке модуля запросов: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MainTabControl.SelectedItem = TabQueries;
+            LoadTabContent(TabQueries);
         }
 
         private void BtnUsers_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                // Открываем окно управления пользователями
-                var userManagementWindow = new UserManagementWindow();
-                userManagementWindow.Owner = this;
-                userManagementWindow.ShowDialog();
-                StatusText.Text = "Управление пользователями";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при открытии управления пользователями: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            // Открываем окно управления пользователями
+            var userManagementWindow = new UserManagementWindow();
+            userManagementWindow.Owner = this;
+            userManagementWindow.ShowDialog();
+            StatusText.Text = "Управление пользователями";
         }
 
         private void BtnPermissions_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                // Открываем окно управления правами
-                var permissionManagementWindow = new PermissionManagementWindow();
-                permissionManagementWindow.Owner = this;
-                permissionManagementWindow.ShowDialog();
-                StatusText.Text = "Управление правами доступа";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при открытии управления правами: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            // Открываем окно управления правами
+            var permissionManagementWindow = new PermissionManagementWindow();
+            permissionManagementWindow.Owner = this;
+            permissionManagementWindow.ShowDialog();
+            StatusText.Text = "Управление правами доступа";
         }
 
         private void BtnHelp_Click(object sender, RoutedEventArgs e)
@@ -348,22 +360,15 @@ namespace BusParkManagementSystem
             this.Close();
         }
 
-        private void HighlightActiveButton(Button activeButton)
+        private async Task<bool> CheckPermission(string menuCode, string accessType)
         {
-            // Сбрасываем стили всех кнопок
-            foreach (var element in NavigationPanel.Children)
-            {
-                if (element is Button button)
-                {
-                    button.Style = (Style)FindResource("PrimaryButton");
-                }
-            }
+            if (!CurrentUser.IsAuthenticated) return false;
 
-            // Выделяем активную кнопку
-            if (activeButton != null)
-            {
-                activeButton.Style = (Style)FindResource("SuccessButton");
-            }
+            // Администратор имеет доступ ко всему
+            if (CurrentUser.User?.Role == "Администратор") return true;
+
+            // Проверяем права через CurrentUser
+            return await CurrentUser.HasPermissionAsync(menuCode, accessType);
         }
         public void OpenLookup(string lookupType)
         {
@@ -373,35 +378,29 @@ namespace BusParkManagementSystem
                 switch (lookupType)
                 {
                     case "Автобусы":
-                        MainContent.Content = new BusesView();
-                        StatusText.Text = "Справочник: Автобусы";
-                        HighlightActiveButton(null); // Сброс выделения, так как это не кнопка навигации
+                        MainTabControl.SelectedItem = TabBuses;
+                        LoadTabContent(TabBuses);
                         break;
 
                     case "Маршруты":
-                        MainContent.Content = new RoutesView();
-                        StatusText.Text = "Справочник: Маршруты";
-                        HighlightActiveButton(null);
+                        MainTabControl.SelectedItem = TabRoutes;
+                        LoadTabContent(TabRoutes);
                         break;
 
                     case "Сотрудники":
-                        MainContent.Content = new EmployeesView();
-                        StatusText.Text = "Справочник: Сотрудники";
-                        HighlightActiveButton(null);
+                        MainTabControl.SelectedItem = TabEmployees;
+                        LoadTabContent(TabEmployees);
                         break;
 
                     case "Рейсы":
-                        MainContent.Content = new TripsView();
-                        StatusText.Text = "Справочник: Рейсы";
-                        HighlightActiveButton(null);
+                        MainTabControl.SelectedItem = TabTrips;
+                        LoadTabContent(TabTrips);
                         break;
 
                     default:
                         // Если тип не найден, открываем общее окно справочников
-                        var lookupView = new LookupView();
-                        MainContent.Content = lookupView;
-                        StatusText.Text = $"Справочник: {lookupType}";
-                        HighlightActiveButton(null);
+                        MainTabControl.SelectedItem = TabLookups;
+                        LoadTabContent(TabLookups);
                         break;
                 }
             }
