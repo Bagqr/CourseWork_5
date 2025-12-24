@@ -78,7 +78,8 @@
                     Margin="16,0,16,16"
                     Background="White"
                     BorderBrush="#2C3E50"
-                    SelectionChanged="MainTabControl_SelectionChanged">
+                    SelectionChanged="MainTabControl_SelectionChanged"
+                    MouseWheel="MainTabControl_MouseWheel">
             <TabItem x:Name="TabBuses" Header="Автобусы" Visibility="Collapsed">
                 <Frame x:Name="BusesFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>

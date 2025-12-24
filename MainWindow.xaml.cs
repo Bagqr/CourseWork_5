@@ -406,5 +406,52 @@ namespace BusParkManagementSystem
             // Можно добавить дополнительные действия при закрытии окна
             // Например, сохранение настроек или проверку несохраненных данных
         }
+
+        private void MainTabControl_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            // Получаем TabControl
+            var tabControl = sender as TabControl;
+            if (tabControl == null || tabControl.Items.Count == 0) return;
+
+            // Получаем индекс текущей вкладки
+            int currentIndex = tabControl.SelectedIndex;
+
+            // Определяем направление прокрутки
+            if (e.Delta > 0)
+            {
+                // Прокрутка вверх - переходим к предыдущей вкладке
+                if (currentIndex > 0)
+                {
+                    // Находим предыдущую видимую вкладку
+                    for (int i = currentIndex - 1; i >= 0; i--)
+                    {
+                        if (tabControl.Items[i] is TabItem tabItem && tabItem.Visibility == Visibility.Visible)
+                        {
+                            tabControl.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Прокрутка вниз - переходим к следующей вкладке
+                if (currentIndex < tabControl.Items.Count - 1)
+                {
+                    // Находим следующую видимую вкладку
+                    for (int i = currentIndex + 1; i < tabControl.Items.Count; i++)
+                    {
+                        if (tabControl.Items[i] is TabItem tabItem && tabItem.Visibility == Visibility.Visible)
+                        {
+                            tabControl.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Отменяем стандартное поведение прокрутки
+            e.Handled = true;
+        }
     }
 }
