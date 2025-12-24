@@ -508,18 +508,34 @@ namespace BusParkManagementSystem
         private void HighlightActiveButton(Button activeButton)
         {
             // Сбрасываем стили всех кнопок
-            foreach (var element in NavigationPanel.Children)
-            {
-                if (element is Button button)
-                {
-                    button.Style = (Style)FindResource("PrimaryButton");
-                }
-            }
+            ResetButtonStyle(BtnBuses);
+            ResetButtonStyle(BtnRoutes);
+            ResetButtonStyle(BtnEmployees);
+            ResetButtonStyle(BtnTrips);
+            ResetButtonStyle(BtnModels);
+            ResetButtonStyle(BtnBusStates);
+            ResetButtonStyle(BtnColors);
+            ResetButtonStyle(BtnPositions);
+            ResetButtonStyle(BtnStreets);
+            ResetButtonStyle(BtnStops);
+            ResetButtonStyle(BtnShiftTypes);
+            ResetButtonStyle(BtnReports);
+            ResetButtonStyle(BtnQueries);
+            ResetButtonStyle(BtnUsers);
+            ResetButtonStyle(BtnPermissions);
 
             // Выделяем активную кнопку
             if (activeButton != null)
             {
                 activeButton.Style = (Style)FindResource("SuccessButton");
+            }
+        }
+
+        private void ResetButtonStyle(Button button)
+        {
+            if (button != null)
+            {
+                button.Style = (Style)FindResource("PrimaryButton");
             }
         }
         public void OpenLookup(string lookupType)
